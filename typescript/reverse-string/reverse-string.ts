@@ -1,6 +1,10 @@
 class ReverseString {
     static reverse(s: string): string {
-        return s.split('').reverse().join('')
+        let reversedString = ''
+        for (let i = s.length - 1; i >= 0; i--) {
+            reversedString += s[i]
+        }
+        return reversedString
     }
 }
 
