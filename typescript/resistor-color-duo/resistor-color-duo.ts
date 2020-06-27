@@ -13,7 +13,6 @@ type Color =
 
 export class ResistorColor {
 
-
   private colorMap: Record<Color, number> = {
     black: 0,
     brown: 1,
@@ -26,11 +25,15 @@ export class ResistorColor {
     grey: 8,
     white: 9,
   }
-
+  
   constructor(private colors: Color[]) {
     if (this.colors.length < 2) {
       throw new Error("At least two colors need to be present")
     }
   }
-  value = (): number => parseInt(this.colors.slice(0, 2).map(color => this.colorMap[color]).join(''))
+  
+  value = (): number => {
+    const [ first, second ] = this.colors
+    return this.colorMap[first] * 10 + this.colorMap[second]
+  }
 }
