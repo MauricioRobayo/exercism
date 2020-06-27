@@ -1,12 +1,12 @@
 const GIGASECOND = 1_000_000_000
 
 class Gigasecond {
-  constructor(private d: Date) {
+  constructor(private initialDate: Date) {
   }
   date(): Date {
-    const d2 = new Date(this.d)
+    const finalDate = new Date(this.initialDate)
     const gigamilliseconds = GIGASECOND * 1000
-    return new Date(d2.setTime(this.d.getTime() + gigamilliseconds))
+    return new Date(this.initialDate.getTime() + gigamilliseconds)
   }
 }
 
