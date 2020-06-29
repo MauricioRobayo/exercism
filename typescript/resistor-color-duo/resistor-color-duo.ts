@@ -1,7 +1,7 @@
 type Color = keyof ResistorColor['colorMap']
 
 export class ResistorColor {
-  private colorMap: Record<string, number> = {
+  private colorMap = {
     black: 0,
     brown: 1,
     red: 2,
