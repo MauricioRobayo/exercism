@@ -14,10 +14,7 @@ export class ResistorColor {
     white: 9,
   }
   
-  constructor(private colors: Color[]) {
-    if (this.colors.length < 2) {
-      throw new Error("At least two colors need to be present")
-    }
+  constructor(private colors: [Color, Color, ...Color[]]) {
   }
   
   value = (): number => {
