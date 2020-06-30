@@ -21,9 +21,4 @@ describe("Resistor Colors", () => {
     expect(resistorColor.value()).toEqual(33)
   })
 
-  it("Ignore additional colors", () => {
-    const resistorColor = new ResistorColor(["green", "brown", "orange"])
-    expect(resistorColor.value()).toEqual(51)
-  })
-
 })

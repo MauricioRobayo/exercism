@@ -14,7 +14,7 @@ export class ResistorColor {
     white: 9,
   }
   
-  constructor(private colors: [Color, Color, ...Color[]]) {
+  constructor(private colors: [Color, Color]) {
   }
   
   value = (): number => {
