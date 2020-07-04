@@ -10,7 +10,7 @@ describe('Squares', () => {
     })
 
     xit('gets the sum of squares', () => {
-      expect(squares.squareOfSum).toBe(55)
+      expect(squares.sumOfSquares).toBe(55)
     })
 
     xit('gets the difference', () => {
@@ -27,7 +27,7 @@ describe('Squares', () => {
     })
 
     xit('gets the sum of squares', () => {
-      expect(squares.squareOfSum).toBe(385)
+      expect(squares.sumOfSquares).toBe(385)
     })
 
     xit('gets the difference', () => {
@@ -44,7 +44,7 @@ describe('Squares', () => {
     })
 
     xit('gets the sum of squares', () => {
-      expect(squares.squareOfSum).toBe(338350)
+      expect(squares.sumOfSquares).toBe(338350)
     })
 
     xit('gets the difference', () => {
