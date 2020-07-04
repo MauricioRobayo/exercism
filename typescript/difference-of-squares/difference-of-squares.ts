@@ -1,17 +1,37 @@
 class Squares {
-  readonly squareOfSum = 0
-  readonly sumOfSquares = 0
-  readonly difference: number
+  private _squareOfSum = 0;
+  private _sumOfSquares = 0;
 
-  constructor(private squares: number) {
-    for (let i = 1; i <= this.squares; i++) {
-      this.squareOfSum += i
-      this.sumOfSquares += i * i
+  constructor(private squares: number) {}
+
+  get squareOfSum(): number {
+    if (this._squareOfSum !== 0) {
+      return this._squareOfSum;
     }
-    this.squareOfSum *= this.squareOfSum
-    this.difference = this.squareOfSum - this.sumOfSquares
+
+    for (let i = 1; i <= this.squares; i++) {
+      this._squareOfSum += i;
+    }
+
+    this._squareOfSum *= this._squareOfSum;
+    return this._squareOfSum;
   }
 
+  get sumOfSquares(): number {
+    if (this._sumOfSquares !== 0) {
+      return this._sumOfSquares;
+    }
+
+    for (let i = 1; i <= this.squares; i++) {
+      this._sumOfSquares += i * i;
+    }
+
+    return this._sumOfSquares;
+  }
+
+  get difference(): number {
+    return this.squareOfSum - this.sumOfSquares;
+  }
 }
 
-export default Squares
+export default Squares;
