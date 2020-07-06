@@ -3,15 +3,20 @@ type wordFrequency = Map<string, number>
 class Words {
   count(phrase: string): wordFrequency {
     const wordsFrequency: wordFrequency = new Map()
-    phrase
+
+    this.tokenizePhrase(phrase).forEach((word) => {
+        const wordFreq = wordsFrequency.get(word)
+        wordsFrequency.set(word, (wordFreq || 0) + 1)
+      })
+    
+    return wordsFrequency
+  }
+
+  private tokenizePhrase(phrase: string): string[] {
+    return phrase
       .trim()
       .split(/\s+/)
-      .forEach((word) => {
-        const normalizedWord = word.toLowerCase()
-        const wordFreq = wordsFrequency.get(normalizedWord)
-        wordsFrequency.set(normalizedWord, wordFreq ? wordFreq + 1 : 1)
-      })
-    return wordsFrequency
+      .map((word) => word.toLowerCase())
   }
 }
 
