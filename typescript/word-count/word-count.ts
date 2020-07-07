@@ -1,8 +1,8 @@
-type wordFrequency = Map<string, number>
+type WordFrequency = Map<string, number>
 
 class Words {
-  count(phrase: string): wordFrequency {
-    const wordsFrequency: wordFrequency = new Map()
+  count(phrase: string): WordFrequency {
+    const wordsFrequency: WordFrequency = new Map()
 
     this.tokenizePhrase(phrase).forEach((word) => {
         const wordFreq = wordsFrequency.get(word)
