@@ -1,13 +1,17 @@
-class Year {
-  constructor(private value: number) {}
+interface Year {
+  isDivisibleBy: (divisor: number) => boolean;
+}
 
-  isDivisibleBy(divisor: number): boolean {
-    return this.value % divisor === 0;
-  }
+function createYear(value: number): Year {
+  return {
+    isDivisibleBy(divisor: number): boolean {
+      return value % divisor === 0;
+    },
+  };
 }
 
 function isLeapYear(n: number): boolean {
-  const year = new Year(n);
+  const year = createYear(n);
   return (
     (year.isDivisibleBy(4) && !year.isDivisibleBy(100)) ||
     year.isDivisibleBy(400)
