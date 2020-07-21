@@ -1,10 +1,8 @@
 export default class Triangle {
-  readonly matchingSides: number;
   sides: number[];
 
   constructor(...sides: number[]) {
     this.sides = sides;
-    this.matchingSides = this.calculateMatchingSides();
   }
 
   kind(): string {
@@ -23,27 +21,10 @@ export default class Triangle {
     return "scalene";
   }
 
-  isInequality(): boolean {
-    return (
-      this.sides[0] + this.sides[1] >= this.sides[2] &&
-      this.sides[1] + this.sides[2] >= this.sides[0] &&
-      this.sides[0] + this.sides[2] >= this.sides[1]
-    );
-  }
-
-  isTriangle(): boolean {
-    return (
-      this.isInequality() &&
-      this.sides[0] > 0 &&
-      this.sides[1] > 0 &&
-      this.sides[2] > 0
-    );
-  }
-
-  private calculateMatchingSides(): number {
+  get matchingSides(): number {
     if (this.sides[0] === this.sides[1] && this.sides[1] === this.sides[2]) {
       return 3;
-    }
+    } 
 
     if (
       this.sides[0] === this.sides[1] ||
@@ -54,5 +35,22 @@ export default class Triangle {
     }
 
     return 0;
+  }
+
+  private isInequality(): boolean {
+    return (
+      this.sides[0] + this.sides[1] >= this.sides[2] &&
+      this.sides[1] + this.sides[2] >= this.sides[0] &&
+      this.sides[0] + this.sides[2] >= this.sides[1]
+    );
+  }
+
+  private isTriangle(): boolean {
+    return (
+      this.isInequality() &&
+      this.sides[0] > 0 &&
+      this.sides[1] > 0 &&
+      this.sides[2] > 0
+    );
   }
 }
