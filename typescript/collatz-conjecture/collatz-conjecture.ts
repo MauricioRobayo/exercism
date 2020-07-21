@@ -8,7 +8,7 @@ class CollatzConjecture {
             return 0;
         }
 
-        return CollatzConjecture.steps(n % 2 === 0 ? n / 2 : n * 3 + 1) + 1;
+        return CollatzConjecture.steps(n % 2 ? n * 3 + 1 : n / 2) + 1;
     }
 }
 
