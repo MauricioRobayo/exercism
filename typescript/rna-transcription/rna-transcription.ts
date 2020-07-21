@@ -11,11 +11,11 @@ class Transcriptor {
     };
     let rna = '';
 
-    for (let i = 0; i < dna.length; i++){
-      if (!(dna[i] in complements)) {
+    for (const dnaStrand of dna){
+      if (!(dnaStrand in complements)) {
         throw new Error("Invalid input DNA.");
       }
-      rna += complements[<DNA>dna[i]];
+      rna += complements[<DNA>dnaStrand];
     }
 
     return rna;
