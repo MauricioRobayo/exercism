@@ -9,14 +9,16 @@ class Transcriptor {
       T: "A",
       A: "U",
     };
+    let rna = '';
 
-    const dnaArray = [...dna];
-
-    if (!dnaArray.every((e) => Object.keys(complements).includes(e))) {
-      throw new Error("Invalid input DNA.");
+    for (let i = 0; i < dna.length; i++){
+      if (!(dna[i] in complements)) {
+        throw new Error("Invalid input DNA.");
+      }
+      rna += complements[<DNA>dna[i]];
     }
 
-    return (<DNA[]>dnaArray).map((e) => complements[e]).join("");
+    return rna;
   }
 }
 
