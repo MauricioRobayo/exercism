@@ -6,7 +6,7 @@ export default class Triangle {
   }
 
   kind(): string {
-    if (!this.isTriangle()) {
+    if (!this.isValid()) {
       throw new Error("That's not a triangle!");
     }
 
@@ -22,35 +22,15 @@ export default class Triangle {
   }
 
   get matchingSides(): number {
-    if (this.sides[0] === this.sides[1] && this.sides[1] === this.sides[2]) {
-      return 3;
-    } 
-
-    if (
-      this.sides[0] === this.sides[1] ||
-      this.sides[1] === this.sides[2] ||
-      this.sides[0] === this.sides[2]
-    ) {
-      return 2;
-    }
-
-    return 0;
+    return this.sides.length - new Set(this.sides).size + 1;
   }
 
   private isInequality(): boolean {
-    return (
-      this.sides[0] + this.sides[1] >= this.sides[2] &&
-      this.sides[1] + this.sides[2] >= this.sides[0] &&
-      this.sides[0] + this.sides[2] >= this.sides[1]
-    );
+    const [a, b, c] = this.sides.sort((a, b) => a - b);
+    return a + b > c;
   }
 
-  private isTriangle(): boolean {
-    return (
-      this.isInequality() &&
-      this.sides[0] > 0 &&
-      this.sides[1] > 0 &&
-      this.sides[2] > 0
-    );
+  private isValid(): boolean {
+    return this.isInequality() && this.sides.every((side) => side > 0);
   }
 }
