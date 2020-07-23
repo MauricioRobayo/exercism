@@ -22,7 +22,7 @@ class Transcriptor {
     return rna;
   }
 
-  isDnaNucleotide(nucleotide: DNA | string): nucleotide is DNA {
+  isDnaNucleotide(nucleotide: string): nucleotide is DNA {
     return nucleotide in this.complements;
   }
 }
