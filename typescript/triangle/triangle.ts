@@ -18,11 +18,21 @@ export default class Triangle {
       return "isosceles";
     }
 
-    return "scalene";
+    if (this.matchingSides === 0) {
+      return "scalene";
+    }
+
+    throw new Error('Unknown kind of triangle!')
   }
 
   get matchingSides(): number {
-    return this.sides.length - new Set(this.sides).size + 1;
+    const uniqueSides = new Set(this.sides).size;
+    const uniqueSidesToMatchingSides: Record<number, number> = {
+      1: 3,
+      2: 2,
+      3: 0
+    }
+    return uniqueSidesToMatchingSides[uniqueSides];
   }
 
   private isInequality(): boolean {
