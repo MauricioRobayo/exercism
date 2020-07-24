@@ -1,5 +1,10 @@
 export default class Triangle {
   sides: number[];
+  private uniqueSidesToMatchingSides: Record<number, number> = {
+    1: 3,
+    2: 2,
+    3: 0
+  }
 
   constructor(...sides: number[]) {
     this.sides = sides;
@@ -27,12 +32,7 @@ export default class Triangle {
 
   get matchingSides(): number {
     const uniqueSides = new Set(this.sides).size;
-    const uniqueSidesToMatchingSides: Record<number, number> = {
-      1: 3,
-      2: 2,
-      3: 0
-    }
-    return uniqueSidesToMatchingSides[uniqueSides];
+    return this.uniqueSidesToMatchingSides[uniqueSides];
   }
 
   private isInequality(): boolean {
