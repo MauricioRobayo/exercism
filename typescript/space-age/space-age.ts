@@ -1,52 +1,67 @@
+type Planet =
+  | 'mercury'
+  | 'venus'
+  | 'earth'
+  | 'mars'
+  | 'jupiter'
+  | 'saturn'
+  | 'uranus'
+  | 'neptune'
+
+const orbitalPeriodsRelativeToEarth: Record<Planet, number> = {
+  mercury:  0.2408467,
+  venus: 0.61519726,
+  earth: 1,
+  mars: 1.8808158,
+  jupiter: 11.862615,
+  saturn: 29.447498,
+  uranus: 84.016846,
+  neptune:164.79132,
+}
+
+
 class SpaceAge {
-  private ORBITAL_PERIOD = 31557600;
-  readonly seconds: number;
+  private EARTH_ORBITAL_PERIOD = 31557600;
+  public readonly seconds: number;
   constructor(seconds: number) {
-    this.seconds = seconds;
+    this.seconds = seconds
   }
 
   onEarth(): number {
-    return this.years();
+    return this.getAgeInYears('earth');
   }
 
   onMercury(): number {
-    const orbitalPeriod = 0.2408467;
-    return this.years(orbitalPeriod);
+    return this.getAgeInYears('mercury');
   }
 
   onVenus(): number {
-    const orbitalPeriod = 0.61519726;
-    return this.years(orbitalPeriod);
+    return this.getAgeInYears('venus');
   }
 
   onMars(): number {
-    const orbitalPeriod = 1.8808158;
-    return this.years(orbitalPeriod);
+    return this.getAgeInYears('mars');
   }
 
   onJupiter(): number {
-    const orbitalPeriod = 11.862615;
-    return this.years(orbitalPeriod);
+    return this.getAgeInYears('jupiter');
   }
 
   onSaturn(): number {
-    const orbitalPeriod = 29.447498;
-    return this.years(orbitalPeriod);
+    return this.getAgeInYears('saturn');
   }
 
   onUranus(): number {
-    const orbitalPeriod = 84.016846;
-    return this.years(orbitalPeriod);
+    return this.getAgeInYears('uranus');
   }
 
   onNeptune(): number {
-    const orbitalPeriod = 164.79132;
-    return this.years(orbitalPeriod);
+    return this.getAgeInYears('neptune');
   }
 
-  private years(periodInEarthYears: number = 1): number {
+  private getAgeInYears(planet: Planet): number {
     return this.roundToTwoDecimals(
-      this.seconds / this.ORBITAL_PERIOD / periodInEarthYears
+      this.seconds / this.EARTH_ORBITAL_PERIOD / orbitalPeriodsRelativeToEarth[planet]
     );
   }
 
