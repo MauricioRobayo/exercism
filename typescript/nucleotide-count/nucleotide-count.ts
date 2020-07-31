@@ -11,7 +11,7 @@ class NucleotideCount {
     };
 
     for (const letter of strand) {
-      if (!NucleotideCount.isNucleotid(letter)) {
+      if (!NucleotideCount.isNucleotide(letter)) {
         throw new Error("Invalid nucleotide in strand");
       }
       nucleotidesCount[letter]++
@@ -20,7 +20,7 @@ class NucleotideCount {
     return nucleotidesCount
   }
 
-  static isNucleotid(letter: string): letter is Nucleotide {
+  static isNucleotide(letter: string): letter is Nucleotide {
     return ["A", "C", "G", "T"].includes(letter);
   }
 }
