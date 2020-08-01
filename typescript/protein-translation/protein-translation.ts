@@ -1,23 +1,28 @@
-type Codon =
-  | "AUG"
-  | "UUU"
-  | "UUC"
-  | "UUA"
-  | "UUG"
-  | "UCU"
-  | "UCC"
-  | "UCA"
-  | "UCG"
-  | "UAU"
-  | "UAC"
-  | "UGU"
-  | "UGC"
-  | "UGG"
-  | "UAA"
-  | "UAG"
-  | "UGA";
+const codons = [
+  "AUG",
+  "UUU",
+  "UUC",
+  "UUA",
+  "UUG",
+  "UCU",
+  "UCC",
+  "UCA",
+  "UCG",
+  "UAU",
+  "UAC",
+  "UGU",
+  "UGC",
+  "UGG",
+  "UAA",
+  "UAG",
+  "UGA",
+] as const;
+type Codon = typeof codons[number];
 
-type AminoAcid =
+const stops = ["UAA", "UAG", "UGA"]
+type Stop = typeof stops[number];
+
+type Protein =
   | "Methionine"
   | "Phenylalanine"
   | "Leucine"
@@ -26,11 +31,9 @@ type AminoAcid =
   | "Cysteine"
   | "Tryptophan";
 
-type Stop = "UAA" | "UAG" | "UGA";
+type ProteinCodon = Exclude<Codon, Stop>;
 
-type AminoAcidCodon = Exclude<Codon, Stop>;
-
-const codonsToAminoAcids: Record<AminoAcidCodon, AminoAcid> = {
+const codonsToProteins: Record<ProteinCodon, Protein> = {
   AUG: "Methionine",
   UUU: "Phenylalanine",
   UUC: "Phenylalanine",
@@ -48,28 +51,50 @@ const codonsToAminoAcids: Record<AminoAcidCodon, AminoAcid> = {
 };
 
 class ProteinTranslation {
-  static proteins(rna: string): AminoAcid[] {
-    const protein: AminoAcid[] = [];
+  static proteins(rna: string): Protein[] {
+    const protein: Protein[] = [];
 
-    const codons = ProteinTranslation.splitRnaIntoCodons(rna);
-    return codons.map((codon) => codonsToAminoAcids[codon]);
+    const codons = ProteinTranslation.splitRna(rna);
+    const proteinCodons = ProteinTranslation.trimCodons(codons);
+
+    return proteinCodons.map((codon) => codonsToProteins[codon]);
   }
 
-  private static splitRnaIntoCodons(rna: string): AminoAcidCodon[] {
+  private static splitRna(rna: string): Codon[] {
     const codonLength = 3;
-    const codons: AminoAcidCodon[] = [];
+    const codons: Codon[] = [];
+
     for (let i = 0; i < rna.length; i += codonLength) {
       const codon = rna.substr(i, codonLength);
-      if (!this.isAminoAcidCodon(codon)) {
-        break
+
+      if (ProteinTranslation.isCodon(codon)) {
+        codons.push(codon);
       }
-      codons.push(codon);
     }
+
     return codons;
   }
 
-  private static isAminoAcidCodon(codon: string): codon is AminoAcidCodon {
-    return codon in codonsToAminoAcids;
+  private static trimCodons(codons: Codon[]): ProteinCodon[] {
+    const proteinCodons: ProteinCodon[] = []
+
+    for (const codon of codons) {
+      if (ProteinTranslation.isStop(codon)) {
+        break
+      }
+
+      proteinCodons.push(codon)
+    }
+
+    return proteinCodons
+  }
+
+  private static isCodon(s: string): s is Codon {
+    return codons.some((codon) => codon === s)
+  }
+
+  private static isStop(s: string): s is Stop {
+    return stops.some((stop) => stop === s)
   }
 }
 
