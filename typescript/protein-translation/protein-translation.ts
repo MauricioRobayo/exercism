@@ -52,8 +52,6 @@ const codonsToProteins: Record<ProteinCodon, Protein> = {
 
 class ProteinTranslation {
   static proteins(rna: string): Protein[] {
-    const protein: Protein[] = [];
-
     const codons = ProteinTranslation.splitRna(rna);
     const proteinCodons = ProteinTranslation.trimCodons(codons);
 
