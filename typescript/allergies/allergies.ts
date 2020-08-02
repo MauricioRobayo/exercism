@@ -14,30 +14,20 @@ class Allergies {
   constructor(private score: number) {}
 
   allergicTo(item: Item): boolean {
-    const index = items.indexOf(item)
-    const itemsIndexes = this.getItemsIndexes()
-
-    return itemsIndexes.includes(index)
+    return Boolean(this.itemValue(item) & this.score)
   }
 
   list(): Item[] {
-    const itemsIndexes = this.getItemsIndexes()
-
-    return itemsIndexes
-      .map((itemIndex) => items[itemIndex])
-      .filter((item) => item !== undefined)
+    return items.reduce((itemsList, item) => {
+      if (this.allergicTo(item)) {
+        itemsList.push(item)
+      }
+      return itemsList
+    }, new Array<Item>())
   }
 
-  private getItemsIndexes(): number[] {
-    let currentScore = this.score
-    const itemsIndexes: number[] = []
-    while (currentScore > 0) {
-      const itemIndex = Math.trunc(Math.log2(currentScore))
-      const itemScore = Math.pow(2, itemIndex)
-      currentScore -= itemScore
-      itemsIndexes.unshift(itemIndex)
-    }
-    return itemsIndexes
+  private itemValue(item: Item): number {
+    return Math.pow(2, items.indexOf(item))
   }
 }
 
