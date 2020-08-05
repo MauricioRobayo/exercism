@@ -15,7 +15,7 @@ const codonsToProteins = {
   UGG: "Tryptophan",
 } as const
 const stopCodons = ["UAA", "UAG", "UGA"] as const
-const codons = [...Object.keys(codonsToProteins), ...stopCodons]
+const codons = [...Object.keys(codonsToProteins), ...stopCodons] as const
 
 type ProteinCodon = keyof typeof codonsToProteins
 type StopCodon = typeof stopCodons[number];
