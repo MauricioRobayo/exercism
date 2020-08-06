@@ -1,5 +1,3 @@
-import { profileEnd } from "console";
-
 const codonsToAminoAcid = {
   AUG: "Methionine",
   UUU: "Phenylalanine",
@@ -17,7 +15,6 @@ const codonsToAminoAcid = {
   UGG: "Tryptophan",
 } as const
 const stopCodons = ["UAA", "UAG", "UGA"] as const
-const codons = Object.keys(codonsToAminoAcid)
 
 type Codon = keyof typeof codonsToAminoAcid
 type StopCodon = typeof stopCodons[number];
