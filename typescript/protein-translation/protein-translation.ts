@@ -1,4 +1,6 @@
-const codonsToProteins = {
+import { profileEnd } from "console";
+
+const codonsToAminoAcid = {
   AUG: "Methionine",
   UUU: "Phenylalanine",
   UUC: "Phenylalanine",
@@ -15,48 +17,56 @@ const codonsToProteins = {
   UGG: "Tryptophan",
 } as const
 const stopCodons = ["UAA", "UAG", "UGA"] as const
-const codons = [...Object.keys(codonsToProteins), ...stopCodons] as const
+const codons = Object.keys(codonsToAminoAcid)
 
-type ProteinCodon = keyof typeof codonsToProteins
+type Codon = keyof typeof codonsToAminoAcid
 type StopCodon = typeof stopCodons[number];
-type Codon = ProteinCodon | StopCodon
-type Protein = typeof codonsToProteins[ProteinCodon]
+type AminoAcid = typeof codonsToAminoAcid[Codon]
 
 class ProteinTranslation {
   static readonly CODON_LENGTH = 3;
 
-  static proteins(rna: string): Protein[] {
-    const proteinCodons = ProteinTranslation.getProteinCodons(rna);
-
-    return proteinCodons.map(ProteinTranslation.translateCodonToProtein);
+  static proteins(rna: string): AminoAcid[] {
+    const codons = ProteinTranslation.splitRna(rna);
+    const proteinSequence = ProteinTranslation.getProteinSequence(codons)
+    return proteinSequence.map(ProteinTranslation.translateCodonToAminoAcid)
   }
 
-  private static getProteinCodons(rna: string): ProteinCodon[] {
-    const proteinCodons: ProteinCodon[] = [];
+  private static splitRna(rna: string): (Codon | StopCodon)[] {
+    const codons: (Codon | StopCodon)[] = [];
 
     for (let i = 0; i < rna.length; i += ProteinTranslation.CODON_LENGTH) {
       const codon = rna.substr(i, ProteinTranslation.CODON_LENGTH);
 
-      if (!ProteinTranslation.isCodon(codon)) {
+      if (!ProteinTranslation.isCodon(codon) && !ProteinTranslation.isStop(codon)) {
         throw new Error('That is an unexpected codon')
       }
+      
+      codons.push(codon);
+    }
 
+    return codons;
+  }
+
+  private static getProteinSequence(codons: (Codon | StopCodon)[]): Codon[] {
+    const proteinSequence: Codon[] = []
+
+    for (const codon of codons) {
       if (ProteinTranslation.isStop(codon)) {
         break
       }
-        
-      proteinCodons.push(codon);
+      proteinSequence.push(codon)
     }
 
-    return proteinCodons;
+    return proteinSequence
   }
 
-  private static translateCodonToProtein(codon: ProteinCodon): Protein  {
-    return codonsToProteins[codon];
+  private static translateCodonToAminoAcid(codon: Codon): AminoAcid  {
+    return codonsToAminoAcid[codon];
   }
 
   private static isCodon(s: string): s is Codon {
-    return codons.includes(s)
+    return Object.keys(codonsToAminoAcid).includes(s)
   }
 
   private static isStop(s: string): s is StopCodon {
