@@ -29,23 +29,18 @@ class ProteinTranslation {
     return proteinSequence.map(ProteinTranslation.translateCodonToAminoAcid)
   }
 
-  private static splitRna(rna: string): (Codon | StopCodon)[] {
-    const codons: (Codon | StopCodon)[] = [];
-
+  private static *splitRna(rna: string): Generator<(Codon | StopCodon)> {
     for (let i = 0; i < rna.length; i += ProteinTranslation.CODON_LENGTH) {
       const codon = rna.substr(i, ProteinTranslation.CODON_LENGTH);
-
       if (!ProteinTranslation.isCodon(codon) && !ProteinTranslation.isStop(codon)) {
         throw new Error('That is an unexpected codon')
       }
       
-      codons.push(codon);
+      yield codon;
     }
-
-    return codons;
   }
 
-  private static getProteinSequence(codons: (Codon | StopCodon)[]): Codon[] {
+  private static getProteinSequence(codons: Generator<(Codon | StopCodon)>): Codon[] {
     const proteinSequence: Codon[] = []
 
     for (const codon of codons) {
