@@ -1,22 +1,14 @@
+const factors = [
+  { factor: 3, name: 'Pling' },
+  { factor: 5, name: 'Plang' },
+  { factor: 7, name: 'Plong' },
+]
+
 class Raindrops {
-  convert(n: number): string {
-    let result = ''
-
-    if (n % 3 === 0) {
-      result += 'Pling'
-    }
-
-    if (n % 5 === 0) {
-      result += 'Plang'
-    }
-    
-    if (n % 7 === 0) {
-      result += 'Plong'
-    }
-
-    return result || String(n)
-  }
-
+  convert = (n: number): string =>
+    factors
+      .map(({ factor, name }) => n % factor === 0 ? name : '')
+      .join('') || String(n)
 }
 
 export default Raindrops
