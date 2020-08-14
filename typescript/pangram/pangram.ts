@@ -1,12 +1,14 @@
+const alphabet = "abcdefghijklmnopqrstuvwxyz";
+
 class Pangram {
   constructor(private sentence: string) {}
 
   isPangram(): boolean {
-    const letters = "abcdefghijklmnopqrstuwxyz";
 
-    return [...letters].every((letter) =>
-      this.sentence.toLowerCase().includes(letter)
-    );
+    const regex = new RegExp(`[^${alphabet}]`, 'gi')
+    const alphabetLetters = this.sentence.replace(regex, '');
+
+    return new Set(alphabetLetters).size >= new Set(alphabet).size
   }
 }
 
