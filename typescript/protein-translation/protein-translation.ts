@@ -1,4 +1,4 @@
-const codonsToAminoAcid = {
+const codonToAminoAcid = {
   AUG: "Methionine",
   UUU: "Phenylalanine",
   UUC: "Phenylalanine",
@@ -16,9 +16,9 @@ const codonsToAminoAcid = {
 } as const;
 const stopCodons = ["UAA", "UAG", "UGA"] as const;
 
-type Codon = keyof typeof codonsToAminoAcid;
+type Codon = keyof typeof codonToAminoAcid;
 type StopCodon = typeof stopCodons[number];
-type AminoAcid = typeof codonsToAminoAcid[Codon];
+type AminoAcid = typeof codonToAminoAcid[Codon];
 
 class ProteinTranslation {
   static readonly CODON_LENGTH = 3;
@@ -31,7 +31,7 @@ class ProteinTranslation {
       if (ProteinTranslation.isStop(codon)) {
         break;
       }
-      protein.push(ProteinTranslation.translateCodonToAminoAcid(codon));
+      protein.push(codonToAminoAcid[codon]);
     }
 
     return protein;
@@ -51,12 +51,8 @@ class ProteinTranslation {
     }
   }
 
-  private static translateCodonToAminoAcid(codon: Codon): AminoAcid {
-    return codonsToAminoAcid[codon];
-  }
-
   private static isCodon(s: string): s is Codon {
-    return Object.keys(codonsToAminoAcid).includes(s);
+    return Object.keys(codonToAminoAcid).includes(s);
   }
 
   private static isStop(s: string): s is StopCodon {
