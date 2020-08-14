@@ -4,11 +4,12 @@ class Pangram {
   constructor(private sentence: string) {}
 
   isPangram(): boolean {
-
-    const regex = new RegExp(`[^${alphabet}]`, 'gi')
-    const alphabetLetters = this.sentence.replace(regex, '');
-
-    return new Set(alphabetLetters).size >= new Set(alphabet).size
+    for (const letter of alphabet) {
+      if (!this.sentence.toLowerCase().includes(letter)) {
+        return false
+      }
+    }
+    return true
   }
 }
 
