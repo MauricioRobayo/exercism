@@ -1,4 +1,4 @@
-type Nucleotide = "A" | "C" | "G" | "T";
+type Nucleotide = 'A' | 'C' | 'G' | 'T'
 type NucleotidesCount = Record<Nucleotide, number>;
 
 class NucleotideCount {
@@ -10,18 +10,15 @@ class NucleotideCount {
       T: 0,
     };
 
-    for (const letter of strand) {
-      if (!NucleotideCount.isNucleotide(letter)) {
-        throw new Error("Invalid nucleotide in strand");
-      }
-      nucleotidesCount[letter]++
+    if (/[^ACGT]/.test(strand)) {
+      throw new Error("Invalid nucleotide in strand");
+    }
+
+    for (const nucleotide of strand) {
+      nucleotidesCount[nucleotide as Nucleotide]++
     }
 
     return nucleotidesCount
-  }
-
-  static isNucleotide(letter: string): letter is Nucleotide {
-    return ["A", "C", "G", "T"].includes(letter);
   }
 }
 
