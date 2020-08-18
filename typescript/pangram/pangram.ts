@@ -1,15 +1,9 @@
-const alphabet = "abcdefghijklmnopqrstuvwxyz";
-
 class Pangram {
   constructor(private sentence: string) {}
 
   isPangram(): boolean {
-    for (const letter of alphabet) {
-      if (!this.sentence.toLowerCase().includes(letter)) {
-        return false
-      }
-    }
-    return true
+    const sentenceAlphabetCharacters = this.sentence.toLowerCase().replace(/[^a-z]/g, '');
+    return new Set(sentenceAlphabetCharacters).size === 26
   }
 }
 
