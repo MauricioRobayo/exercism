@@ -8,30 +8,40 @@ type BobResponses =
   | "Whatever.";
 
 class Bob {
-  hey(s: string): BobResponses {
-    const trimmedS = s.trim();
+  hey(message: string): BobResponses {
+    const trimmedMessage = message.trim();
 
-    if (trimmedS.length === 0) {
+    if (trimmedMessage.length === 0) {
       return "Fine. Be that way!";
     }
 
-    if (
-      trimmedS.endsWith("?") &&
-      trimmedS.toUpperCase() === trimmedS &&
-      /[a-z]/i.test(trimmedS)
-    ) {
+    if (this.isAskingLoudly(trimmedMessage)) {
       return 'Calm down, I know what I\'m doing!';
     }
 
-    if (trimmedS.endsWith("?")) {
+    if (this.isAsking(trimmedMessage)) {
       return "Sure.";
     }
 
-    if (trimmedS.toUpperCase() === s && /[a-z]/i.test(trimmedS)) {
+    if (this.isYelling(trimmedMessage, message)) {
       return "Whoa, chill out!";
     }
 
     return "Whatever.";
+  }
+
+  private isYelling(trimmedMessage: string, message: string): boolean {
+    return trimmedMessage.toUpperCase() === message && /[a-z]/i.test(trimmedMessage);
+  }
+
+  private isAsking(message: string): boolean {
+    return message.endsWith("?");
+  }
+
+  private isAskingLoudly(message: string): boolean {
+    return message.endsWith("?") &&
+      message.toUpperCase() === message &&
+      /[a-z]/i.test(message);
   }
 }
 
