@@ -1,5 +1,3 @@
-import { transcode } from "buffer";
-
 type BobResponses =
   | "Fine. Be that way!"
   | "Calm down, I know what I'm doing!"
