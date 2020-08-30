@@ -39,8 +39,8 @@ class Bob {
   }
 
   private isAskingLoudly(message: string): boolean {
-    return message.endsWith("?") &&
-      message.toUpperCase() === message &&
+    return this.isAsking(message) &&
+      this.isYelling(message) &&
       /[a-z]/i.test(message);
   }
 }
