@@ -12,7 +12,7 @@ class Bob {
     }
 
     if (this.isAskingLoudly(message)) {
-      return 'Calm down, I know what I\'m doing!';
+      return "Calm down, I know what I'm doing!";
     }
 
     if (this.isAsking(message)) {
@@ -39,9 +39,7 @@ class Bob {
   }
 
   private isAskingLoudly(message: string): boolean {
-    return this.isAsking(message) &&
-      this.isYelling(message) &&
-      /[a-z]/i.test(message);
+    return this.isAsking(message) && this.isYelling(message);
   }
 }
 
