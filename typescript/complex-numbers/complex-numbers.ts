@@ -1,46 +1,42 @@
 class ComplexNumber {
-  constructor(private a: number, private b: number) {}
+  constructor(public readonly real: number, public readonly imag: number) {}
 
-  add(number: ComplexNumber): ComplexNumber {
-    return new ComplexNumber(this.a + number.a, this.b + number.b);
+  add(complexNumber: ComplexNumber): ComplexNumber {
+    return new ComplexNumber(this.real + complexNumber.real, this.imag + complexNumber.imag);
   }
 
-  sub(number: ComplexNumber): ComplexNumber {
-    return new ComplexNumber(this.a - number.a, (this.b - Math.sign(number.b) * number.b))
+  sub(complexNumber: ComplexNumber): ComplexNumber {
+    return new ComplexNumber(this.real - complexNumber.real, this.imag - complexNumber.imag);
   }
 
-  mul(number: ComplexNumber): ComplexNumber {
-    return new ComplexNumber(this.a * number.a -
-      this.b * number.b, this.b * number.a + this.a * number.b)
-  }
-
-  div(number: ComplexNumber): ComplexNumber {
+  mul(complexNumber: ComplexNumber): ComplexNumber {
     return new ComplexNumber(
-      (this.a * number.a + this.b * number.b) /
-        (Math.pow(number.a, 2) + Math.pow(number.b, 2)),
-      (this.b * number.a - this.a * number.b) /
-        (Math.pow(number.a, 2) + Math.pow(number.b, 2))
-    )
+      this.real * complexNumber.real - this.imag * complexNumber.imag,
+      this.imag * complexNumber.real + this.real * complexNumber.imag
+    );
   }
 
-  get real(): number {
-    return Math.abs(this.a);
-  }
-
-  get imag(): number {
-    return this.b;
+  div(complexNumber: ComplexNumber): ComplexNumber {
+    return new ComplexNumber(
+      (this.real * complexNumber.real + this.imag * complexNumber.imag) /
+        (Math.pow(complexNumber.real, 2) + Math.pow(complexNumber.imag, 2)),
+      (this.imag * complexNumber.real - this.real * complexNumber.imag) /
+        (Math.pow(complexNumber.real, 2) + Math.pow(complexNumber.imag, 2))
+    );
   }
 
   get abs(): number {
-    return Math.sqrt(Math.pow(this.a, 2) + Math.pow(this.b, 2));
+    return Math.sqrt(Math.pow(this.real, 2) + Math.pow(this.imag, 2));
   }
 
   get conj(): ComplexNumber {
-    return new ComplexNumber(this.a, this.b === 0 ? 0 : -this.b);
+    return new ComplexNumber(this.real, this.imag === 0 ? 0 : -this.imag);
   }
 
   get exp(): ComplexNumber {
-    return new ComplexNumber(Math.pow(Math.E, this.a), Math.cos(this.b) * Math.sin(this.b))
+    return new ComplexNumber(
+      Math.pow(Math.E, this.real) * Math.cos(this.imag), Math.sin(this.imag)
+    );
   }
 }
 
