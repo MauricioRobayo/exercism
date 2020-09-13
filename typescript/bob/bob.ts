@@ -1,12 +1,5 @@
-type BobResponses =
-  | "Fine. Be that way!"
-  | "Calm down, I know what I'm doing!"
-  | "Sure."
-  | "Whoa, chill out!"
-  | "Whatever.";
-
 class Bob {
-  hey(message: string): BobResponses {
+  hey(message: string): string {
     if (this.isEmpty(message)) {
       return "Fine. Be that way!";
     }
