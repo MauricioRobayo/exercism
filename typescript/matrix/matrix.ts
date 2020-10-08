@@ -1,29 +1,22 @@
+import { cpuUsage } from "process";
+
+type Matrix2D = number[][];
+
 class Matrix {
-  private matrix: number[][];
+  private matrix: Matrix2D;
 
   constructor(matrix: string) {
     this.matrix = matrix
       .split("\n")
-      .map((row) => row.split(" ").map((e) => Number(e)));
+      .map((row) => row.split(" ").map(Number));
   }
 
-  get rows(): number[][] {
+  get rows(): Matrix2D {
     return this.matrix;
   }
 
-  get columns(): number[][] {
-    const columns: number[][] = Array.from(
-      { length: this.matrix[0].length },
-      () => []
-    );
-
-    for (let row = 0; row < this.matrix.length; row++) {
-      for (let col = 0; col < this.matrix[row].length; col++) {
-        columns[col][row] = this.matrix[row][col];
-      }
-    }
-
-    return columns;
+  get columns(): Matrix2D {
+    return this.matrix[0].map((_, i) => this.matrix.map((row) => row[i]));
   }
 }
 
