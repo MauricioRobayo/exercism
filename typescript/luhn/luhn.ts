@@ -7,11 +7,13 @@ export default class Luhn {
 
     let total = 0;
 
-    for (const [index, digit] of Object.entries(stringWithoutSpaces)) {
-      if (Number(index) % 2 === 0) {
-        total += Number(digit);
+    for (let i = 0; i < stringWithoutSpaces.length; i++) {
+      const digit = Number(stringWithoutSpaces[i]);
+
+      if (i % 2 === 0) {
+        total += digit;
       } else {
-        const doubled = Number(digit) * 2;
+        const doubled = digit * 2;
         total += doubled > 9 ? doubled - 9 : doubled;
       }
     }
