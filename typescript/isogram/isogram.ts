@@ -1,6 +1,6 @@
 class Isogram {
   static isIsogram(string: string): boolean {
-    const charactersToIgnore = new Set(["-", " "]);
+    const charactersToIgnore = new Set<string>(["-", " "]);
     const seenCharacters = new Set<string>();
 
     for (const character of string.toLowerCase()) {
