@@ -25,15 +25,15 @@ export default class Triplet {
     const triplets: Triplet[] = [];
     for (let a = minFactor; a <= maxFactor - 2; a++) {
       for (let b = a + 1; b <= maxFactor - 1; b++) {
-        for (let c = b + 1; c <= maxFactor; c++) {
-          if (a ** 2 + b ** 2 === c ** 2) {
-            if (sum) {
-              if (a + b + c === sum) {
-                triplets.push(new Triplet(a, b, c));
-              }
-            } else {
+        const c = Math.sqrt(a ** 2 + b ** 2);
+        const isPythagoreanTriplet = Math.round(c) === c;
+        if (isPythagoreanTriplet) {
+          if (sum) {
+            if (a + b + c === sum) {
               triplets.push(new Triplet(a, b, c));
             }
+          } else {
+            triplets.push(new Triplet(a, b, c));
           }
         }
       }
