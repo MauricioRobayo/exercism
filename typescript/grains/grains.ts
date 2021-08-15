@@ -10,10 +10,14 @@ export default class Grains {
       throw new Error(`Max square is ${MAX_SQUARES}`);
     }
 
-    return Math.pow(2, square - 1);
+    let result = BigInt(1);
+    for (let i = 0; i < square - 1; i++) {
+      result *= BigInt(2);
+    }
+    return Number(result);
   }
 
   static total(): number {
-    return Math.pow(2, MAX_SQUARES);
+    return Grains.square(MAX_SQUARES) * 2;
   }
 }
