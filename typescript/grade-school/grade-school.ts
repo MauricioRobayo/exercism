@@ -20,7 +20,6 @@ export class GradeSchool {
       const filteredStudents = this._roster[currentGrade].filter(
         (s) => s !== student
       );
-      console.log({ filteredStudents });
       this._roster[currentGrade] = filteredStudents;
     }
 
