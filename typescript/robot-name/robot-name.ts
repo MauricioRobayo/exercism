@@ -7,14 +7,15 @@ function shuffle(arr: string[]): void {
 
 function getAllNames(): string[] {
   const allNames: string[] = [];
-  for (let i = "A".charCodeAt(0); i <= "Z".charCodeAt(0); i++) {
-    for (let j = "A".charCodeAt(0); j <= "Z".charCodeAt(0); j++) {
+  const aCode = "A".charCodeAt(0);
+  const zCode = "Z".charCodeAt(0);
+  for (let i = aCode; i <= zCode; i++) {
+    for (let j = aCode; j <= zCode; j++) {
       for (let k = 0; k < 1000; k++) {
-        allNames.push(
-          `${String.fromCharCode(i)}${String.fromCharCode(j)}${String(
-            k
-          ).padStart(3, "0")}`
-        );
+        const firstLetter = String.fromCharCode(i);
+        const secondLetter = String.fromCharCode(j);
+        const number = String(k).padStart(3, "0");
+        allNames.push(`${firstLetter}${secondLetter}${number}`);
       }
     }
   }
