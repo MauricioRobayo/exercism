@@ -1,5 +1,6 @@
 {
-  "cSpell.words": [
-    "Luhn"
-  ]
+  "editor.formatOnSave": false,
+  "editor.codeActionsOnSave": {
+    "source.fixAll.eslint": true
+  }
 }
