@@ -1,39 +1,35 @@
-class Bob {
-  hey(message: string): string {
-    if (this.isEmpty(message)) {
-      return "Fine. Be that way!";
-    }
-
-    if (this.isAskingLoudly(message)) {
-      return "Calm down, I know what I'm doing!";
-    }
-
-    if (this.isAsking(message)) {
-      return "Sure.";
-    }
-
-    if (this.isYelling(message)) {
-      return "Whoa, chill out!";
-    }
-
-    return "Whatever.";
+export function hey(message: string): string {
+  if (isEmpty(message)) {
+    return "Fine. Be that way!";
   }
 
-  private isEmpty(message: string): boolean {
-    return message.trim().length === 0;
+  if (isAskingLoudly(message)) {
+    return "Calm down, I know what I'm doing!";
   }
 
-  private isYelling(message: string): boolean {
-    return message.toUpperCase() === message && /[a-z]/i.test(message);
+  if (isAsking(message)) {
+    return "Sure.";
   }
 
-  private isAsking(message: string): boolean {
-    return message.trim().endsWith("?");
+  if (isYelling(message)) {
+    return "Whoa, chill out!";
   }
 
-  private isAskingLoudly(message: string): boolean {
-    return this.isAsking(message) && this.isYelling(message);
-  }
+  return "Whatever.";
 }
 
-export default Bob;
+function isEmpty(message: string): boolean {
+  return message.trim().length === 0;
+}
+
+function isYelling(message: string): boolean {
+  return message.toUpperCase() === message && /[a-z]/i.test(message);
+}
+
+function isAsking(message: string): boolean {
+  return message.trim().endsWith("?");
+}
+
+function isAskingLoudly(message: string): boolean {
+  return isAsking(message) && isYelling(message);
+}
